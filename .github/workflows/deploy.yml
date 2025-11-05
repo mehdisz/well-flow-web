@@ -14,10 +14,15 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'  # آخرین نسخه پایدار (3.24+)
+          channel: 'stable'
 
       - name: Install dependencies
         run: flutter pub get
+
+      - name: Create credentials.json from secret
+        run: |
+          mkdir -p assets
+          echo '${{ secrets.CREDENTIALS_JSON }}' > assets/credentials.json
 
       - name: Build web
         run: |
