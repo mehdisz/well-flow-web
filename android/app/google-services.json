@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "488467453625",
+    "project_id": "ehyaapp-22ed3",
+    "storage_bucket": "ehyaapp-22ed3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488467453625:android:e4ce0beb125e7bdcc7ad68",
+        "android_client_info": {
+          "package_name": "com.example.ehya_proj_01"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADxI-x4Dbfmm3XCzYyU-Xzvek9vwN888U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
