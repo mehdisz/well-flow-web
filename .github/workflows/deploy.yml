@@ -1,39 +1,36 @@
-name: Flutter Web CI/CD
+name: Deploy Flutter Web to GitHub Pages
 
 on:
-push:
-branches:
-  - main
+  push:
+    branches: [ main ]
 
 jobs:
-build-deploy:
-runs-on: ubuntu-latest
-  
-  ```
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v3
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  - name: Setup Flutter
-    uses: subosito/flutter-action@v2
-    with:
-      flutter-version: '3.35.7'
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'  # بهتر از نسخه ثابت
 
-  - name: Enable Flutter Web
-    run: flutter config --enable-web
+      - name: Install dependencies
+        run: flutter pub get
 
-  - name: Install dependencies
-    run: flutter pub get
+      - name: Build web (HTML renderer)
+        run: |
+          flutter build web --release \
+            --web-renderer html \
+            --base-href /well-flow-web/
 
-  - name: Build web
-    run: flutter build web --release --base-href=/well-flow-web/
-
-  - name: Deploy to GitHub Pages
-    uses: peaceiris/actions-gh-pages@v3
-    with:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
-      publish_dir: ./build/web
-      publish_branch: gh-pages
-      user_name: 'github-actions'
-      user_email: 'github-actions@github.com'
-  ```
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
+          publish_branch: gh-pages
+          force_orphan: true  # شاخه gh-pages رو کامل تمیز می‌کنه
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
