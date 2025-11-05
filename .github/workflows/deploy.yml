@@ -14,15 +14,14 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'  # بهتر از نسخه ثابت
+          channel: 'stable'  # آخرین نسخه پایدار (3.24+)
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build web (HTML renderer)
+      - name: Build web
         run: |
           flutter build web --release \
-            --web-renderer html \
             --base-href /well-flow-web/
 
       - name: Deploy to GitHub Pages
@@ -31,6 +30,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
           publish_branch: gh-pages
-          force_orphan: true  # شاخه gh-pages رو کامل تمیز می‌کنه
+          force_orphan: true
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
